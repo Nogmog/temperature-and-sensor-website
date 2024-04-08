@@ -5,41 +5,41 @@
     <p v-if="error">ERROR: {{ error }}</p>
 
     <div v-if="!loading" v-for="i in group" :key="i.id">
-        <GroupHolder :name="i.name" :group_id="i.id" :group="group" :device="device.filter(x => x.group_id == i.id)"/>    
+        <GroupHolder :name="i.name" :group_id="i.id" :group="group" :device="device.filter(x => x.group_id == i.id)" />
     </div>
 
-     <br />
+    <br />
     <div>
         <button v-on:click="showGroup = !showGroup">Add new group</button>
         <div v-if="showGroup">
-            <input type="text" v-model="groupName" placeholder="Group name"/>
+            <input type="text" v-model="groupName" placeholder="Group name" />
             <br />
             <button v-on:click="addNewGroup">Add</button>
         </div>
         <button v-on:click="showDevice = !showDevice">Add new device</button>
         <div v-if="showDevice">
-            <input type="text" v-model="deviceMac" placeholder="Device Mac Address"/>
+            <input type="text" v-model="deviceMac" placeholder="Device Mac Address" />
             <br />
-            <input type="text" v-model="deviceName" placeholder="Device Name"/>
+            <input type="text" v-model="deviceName" placeholder="Device Name" />
             <br />
             <select v-model="deviceGroup">
                 <p>Add device</p>
-                    <option disabled value="">Select a group</option>
-                    <option v-for="option in group" :value="option.id">{{ option.name }}</option>
-                </select>
-                <br />
-                <button v-on:click="addNewDevice">Add</button>
+                <option disabled value="">Select a group</option>
+                <option v-for="option in group" :value="option.id">{{ option.name }}</option>
+            </select>
+            <br />
+            <button v-on:click="addNewDevice">Add</button>
 
-                <div v-if="showNewToken">
-                    <p>Your token for the new device</p>
-                    <p>{{ newDeviceToken }}</p>
-                    <b>This will not be shown again</b>
-                </div>
+            <div v-if="showNewToken">
+                <p>Your token for the new device</p>
+                <p>{{ newDeviceToken }}</p>
+                <b>This will not be shown again</b>
+            </div>
         </div>
 
     </div>
-    
-    
+
+
 </template>
 
 <script>
@@ -49,8 +49,8 @@ import { groups } from "../../../services/group.services"
 import GroupHolder from "../components/GroupHolder.vue"
 
 export default {
-    data(){
-        return{
+    data() {
+        return {
             group: [],
             device: [],
             error: "",
@@ -70,82 +70,82 @@ export default {
     components: {
         GroupHolder
     },
-    mounted(){
+    mounted() {
         this.loading = true;
         // get all groups
         groups.getAllGroups(this.session_token, this.user_token)
-        .then(response => {
-            this.group = response
-            console.log(response)
-
-            this.getAllDevices();
-        })
-        .catch(err => {
-
-            if(err === 404){
-                this.error = "No groups found"
-            }
-            else{
-                this.error = "Error"
-            }
-            this.loading = false;
-        })
-    },
-    methods: {
-        getAllDevices(){
-            devices.getAllDevices(this.session_token, this.user_token)
             .then(response => {
-                this.device = response
+                this.group = response
                 console.log(response)
-                this.loading = false
+
+                this.getAllDevices();
             })
             .catch(err => {
 
-                if(err === 404){
+                if (err === 404) {
                     this.error = "No groups found"
                 }
-                else{
+                else {
                     this.error = "Error"
                 }
-                this.loading = false
-                }) 
+                this.loading = false;
+            })
+    },
+    methods: {
+        getAllDevices() {
+            devices.getAllDevices(this.session_token, this.user_token)
+                .then(response => {
+                    this.device = response
+                    console.log(response)
+                    this.loading = false
+                })
+                .catch(err => {
+
+                    if (err === 404) {
+                        this.error = "No groups found"
+                    }
+                    else {
+                        this.error = "Error"
+                    }
+                    this.loading = false
+                })
         },
-        checkNull(item){
+        checkNull(item) {
             return (item === null || item === undefined || item === "")
         },
-        addNewGroup(){
-            const { groupName } = this 
-            if(this.group.find(i => i.name == groupName)){
+        addNewGroup() {
+            const { groupName } = this
+            if (this.group.find(i => i.name == groupName)) {
                 console.log("name included")
-            }else{
+            } else {
                 groups.addNewDeviceGroup(this.session_token, this.user_token, groupName)
-                .then((response) => {
-                    let newGroupId = response.insertId;
-                    console.log(newGroupId)
-                    this.group.push({"id": newGroupId, "name": groupName})
-                    this.showGroup = false;
-                })
-                .catch((err) => {
-                    this.error = err;
-                })
+                    .then((response) => {
+                        let newGroupId = response.insertId;
+                        console.log(newGroupId)
+                        this.group.push({ "id": newGroupId, "name": groupName })
+                        this.showGroup = false;
+                    })
+                    .catch((err) => {
+                        this.error = err;
+                    })
             }
         },
-        addNewDevice(){
+        addNewDevice() {
             const { deviceMac, deviceName, deviceGroup, newDeviceToken, checkNull } = this
 
-            if(checkNull(deviceMac) || checkNull(deviceName) || checkNull(deviceGroup)){
+            if (checkNull(deviceMac) || checkNull(deviceName) || checkNull(deviceGroup)) {
                 console.log("somethings null")
-            }else{
+            } else {
                 devices.addNewDevice(this.session_token, this.user_token, deviceMac, deviceName, deviceGroup)
-                .then((response) => {
-                    this.device.push({"mac_address": deviceMac, "name": deviceName, "group_id": deviceGroup})
-                    this.newDeviceToken = response.token;
-                    this.showNewToken = true;
+                    .then((response) => {
+                        this.device.push({ "mac_address": deviceMac, "name": deviceName, "group_id": deviceGroup })
+                        this.newDeviceToken = response.token;
+                        this.showNewToken = true;
 
-                })
-                .catch((err) => {
-                    this.error = err;
-                })
+                    })
+                    .catch((err) => {
+                        this.error = err;
+                    })
             }
         }
     }
