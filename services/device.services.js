@@ -1,4 +1,4 @@
-const URL = "https://steven.rest/";
+const URL = import.meta.env.VUE_APP_API_URL;
 
 const generateLink = (subDomain, token) => {
     return (URL + subDomain + "?user=" + token)

@@ -5,7 +5,6 @@ import { getCurrentUser } from "../../services/currentUser"
 
 import LandingPage from '../views/pages/LandingPage.vue'
 import Home from "../views/pages/Home.vue"
-import Login from "../views/pages/Login.vue"
 import ManageDevices from '../views/pages/ManageDevices.vue'
 import Stats from "../views/pages/Stats.vue"
 
