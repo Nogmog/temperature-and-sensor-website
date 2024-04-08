@@ -6,7 +6,6 @@ import { RouterLink } from 'vue-router'
     <div id="navbar">
         <RouterLink to="/home">Home</RouterLink> <br />
         <RouterLink to="/manage">Manage Devices</RouterLink> <br />
-        <!-- <RouterLink to="/login" >Login</RouterLink> -->
         <button v-on:click="signOutUser">Sign out</button>
         <div>
             <i v-if="loading">Loading..</i>

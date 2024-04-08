@@ -44,7 +44,6 @@ export default {
     mounted() {
         this.loading = true;
         if (this.data.length === 0 || this.data === null || this.data === undefined) {
-            // console.log("no data")
             this.error = "No data found"
             return false;
         }
@@ -67,7 +66,6 @@ export default {
             loading: true,
             error: "",
             chartData: {
-                // type: "line",
                 datasets: []
             },
             chartOptions: {

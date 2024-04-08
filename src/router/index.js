@@ -31,11 +31,6 @@ const router = createRouter({
       meta: { isProtected: true }
     },
     {
-      path: "/login",
-      name: "Login",
-      component: Login
-    },
-    {
       path: "/manage",
       name: "manage",
       component: ManageDevices,

@@ -16,9 +16,6 @@
 <script>
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
 import { users } from "../../../services/user.services"
-// import { router } from "vue-router"
-
-
 
 export default {
     data() {
