@@ -6,7 +6,6 @@ import router from './router'
 import { firebaseApp } from "./firebase"
 
 const app = createApp(App)
-console.log("FIREBASE OPTIONS:", firebaseApp.options)
 app.use(router)
 
 // app.use(VueFire, {
