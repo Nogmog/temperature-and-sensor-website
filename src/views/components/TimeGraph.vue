@@ -33,6 +33,7 @@ ChartJS.register(
 )
 
 export default {
+    // THIS WILL NOT LOAD SINCE THERE ARE NO DEVICES IF THE FIRST GROUP HAS NO DATA.
     components: { Scatter },
     props: {
         name: String,

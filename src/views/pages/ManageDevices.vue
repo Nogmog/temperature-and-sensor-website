@@ -131,7 +131,7 @@ export default {
             }
         },
         addNewDevice() {
-            const { deviceMac, deviceName, deviceGroup, newDeviceToken, checkNull } = this
+            const { deviceMac, deviceName, deviceGroup, checkNull } = this
 
             if (checkNull(deviceMac) || checkNull(deviceName) || checkNull(deviceGroup)) {
                 console.log("somethings null")
@@ -139,7 +139,7 @@ export default {
                 devices.addNewDevice(this.session_token, this.user_token, deviceMac, deviceName, deviceGroup)
                     .then((response) => {
                         this.device.push({ "mac_address": deviceMac, "name": deviceName, "group_id": deviceGroup })
-                        this.newDeviceToken = response.token;
+                        this.$newDeviceToken = response.token;
                         this.showNewToken = true;
 
                     })

@@ -4,12 +4,16 @@ import { RouterLink } from 'vue-router'
 
 <template>
     <div id="navbar">
-        <RouterLink to="/home">Home</RouterLink> <br />
-        <RouterLink to="/manage">Manage Devices</RouterLink> <br />
-        <button v-on:click="signOutUser">Sign out</button>
-        <div>
-            <i v-if="loading">Loading..</i>
-            <i v-if="error">{{ error }}</i>
+        <RouterLink to="/home" class="btn">Home</RouterLink> <br />
+        <RouterLink to="/manage" class="btn">Manage Devices</RouterLink> <br />
+        <RouterLink to="/stats" class="btn">Stats</RouterLink>
+        <div id="userInfo">
+            <img :src="profile_pic">
+            <button class="btn" v-on:click="signOutUser">Sign out</button>
+            <div>
+                <i v-if="loading" class="loading">Loading..</i>
+                <i v-if="error" class="error">{{ error }}</i>
+            </div>
         </div>
     </div>
 </template>
@@ -17,7 +21,7 @@ import { RouterLink } from 'vue-router'
 <script>
 import { getAuth, signOut } from "firebase/auth"
 import { users } from "../../../services/user.services"
-
+import { getCurrentUser } from "../../../services/currentUser"
 
 export default {
     data() {
@@ -25,8 +29,15 @@ export default {
             loading: false,
             submitted: false,
             error: false,
+            profile_pic: "",
             session_token: localStorage.getItem("session-token"),
             user_token: localStorage.getItem("user_token"),
+        }
+    },
+    async mounted() {
+        const user = await getCurrentUser()
+        if (user) {
+            this.profile_pic = user.photoURL
         }
     },
     methods: {
@@ -57,3 +68,13 @@ export default {
     }
 }
 </script>
+
+<!-- <style scoped>
+#navbar {
+    @apply w-screen max-h-16 flex bg-orange;
+}
+
+#navbar #userInfo {
+    @apply justify-end;
+}
+</style> -->

@@ -2,11 +2,11 @@
     <h1>Landing Page</h1>
 
     <div>
-        <button v-on:click="userSignIn">Google sign in</button>
-        <button v-on:click="createAccount">Google sign up</button>
+        <button class="btn" v-on:click="userSignIn">Sign in</button>
+        <button class="btn" v-on:click="createAccount">Sign up</button>
     </div>
-    <div v-if="loading">Loading..</div>
-    <div v-if="error"> ERROR {{ error }}</div>
+    <div v-if="loading" class="loading">Loading..</div>
+    <div v-if="error" class="error"> ERROR {{ error }}</div>
 
     <br />
 
@@ -16,6 +16,7 @@
 <script>
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
 import { users } from "../../../services/user.services"
+import { getCurrentUser } from "../../../services/currentUser"
 
 export default {
     data() {
@@ -29,13 +30,31 @@ export default {
         }
     },
     methods: {
-        userSignIn(e) {
+        async checkSignedIn() {
+            let user = await getCurrentUser();
+
+            if (user) {
+                if (this.session_token == null || this.user_token == null) {
+                    return false
+                } else {
+                    this.$router.push("/home")
+                    return true;
+
+                }
+            }
+        },
+        async userSignIn(e) {
             if (this.submitted) {
                 return false;
             }
             this.loading = true;
             this.submitted = true;
             this.error = "";
+
+            let signedIn = await this.checkSignedIn();
+            if (signedIn) {
+                return true;
+            }
 
             const provider = new GoogleAuthProvider();
             const auth = getAuth();

@@ -13,17 +13,3 @@
         <RouterLink to="/help">Help</RouterLink>
     </div>
 </template>
-
-<style scoped>
-div {
-    /* background-color: aqua; */
-    border: 5px;
-    border-color: black;
-    max-width: 500px
-}
-
-img {
-    flex: auto;
-    max-width: 100px;
-}
-</style>
