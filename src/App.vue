@@ -6,24 +6,8 @@ import Navigation from './views/components/Navigation.vue'
 
 <template>
   <Navigation v-if="!$route.meta.hideNavigation" />
-  <RouterView />
+  <div class="container text-center">
+    <RouterView />
+  </div>
+
 </template>
-
-<!-- <style>
-.btn {
-  @apply font-bold bg-lightblue text-black p-1 border-2 rounded;
-
-}
-
-.btn:hover {
-  @apply bg-blue underline;
-}
-
-.loading {
-  @apply italic;
-}
-
-.error {
-  @apply bg-error text-black;
-}
-</style> -->

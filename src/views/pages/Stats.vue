@@ -1,14 +1,15 @@
 <template>
-    <h1>Stats</h1>
+    <h1 class="p-4 display-5 fw-bold">Stats</h1>
 
     <div>
-        <select v-model="selectedGroup" @change="changeGroup($event)">
+        <select v-model="selectedGroup" @change="changeGroup($event)" class="form-control">
             <p>Select a group</p>
             <option v-for="option in allGroups" :value="option.id">{{ option.name }}</option>
         </select>
     </div>
-    <div v-if="loading">
-        Loading..
+    <div v-if="loading" class="spinner-border m-3">
+        <br />
+        <span class="visually-hidden">Loading</span>
     </div>
     <p v-if="error">{{ error }}</p>
     <div v-if="!loading && devices">

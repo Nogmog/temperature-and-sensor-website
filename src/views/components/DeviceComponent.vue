@@ -1,25 +1,26 @@
 <template>
     <div>
 
-        <p v-on:click="openSettings">{{ device_name }}</p>
+        <p v-on:click="openSettings" role="button"
+            class="link-dark link-underline-opacity-0 link-underline-opacity-75-hover">{{ device_name }}
+        </p>
 
         <div v-if="settingsMenu">
-            <button v-on:click="groupMenuShown = !groupMenuShown">Move Group</button>
-            <button v-on:click="removeDeviceMenu = !removeDeviceMenu">Delete Device</button>
+            <button v-on:click="groupMenuShown = !groupMenuShown" class="btn btn-primary m-1">Move Group</button>
+            <button v-on:click="removeDeviceMenu = !removeDeviceMenu" class="btn btn-primary m-1">Delete Device</button>
 
             <div v-if="groupMenuShown">
                 <br />
-                <select v-model="newGroup">
+                <select v-model="newGroup" class="form-select">
                     <option disabled value="">Select a group</option>
                     <option v-for="option in this.$parent.group" :value="option.id">{{ option.name }}</option>
                 </select>
-                <button v-on:click="changeGroup">OK</button>
+                <button v-on:click="changeGroup" class="btn btn-primary m-1">OK</button>
             </div>
-            <div v-if="removeDeviceMenu">
-                <br />
-                Are you sure?
-                <button v-on:click="deleteDevice">yes</button>
-                <button v-on:click="removeDeviceMenu = false">no</button>
+            <div v-if="removeDeviceMenu" class="bg-danger-subtle">
+                <p>Do you want to delete <b>{{ device_name }}</b>?</p>
+                <button v-on:click="deleteDevice" class="btn btn-danger m-1">yes</button>
+                <button v-on:click="removeDeviceMenu = false" class="btn btn-primary m-1">no</button>
             </div>
         </div>
     </div>

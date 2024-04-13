@@ -1,10 +1,12 @@
 <template>
-    <h2><i>{{ name }}</i></h2>
-    <div v-if="loading && !error">
-        <p>Generating graph..</p>
+    <div class="p-3 border border-3 border-black border-opacity-50">
+        <h2><i>{{ name }}</i></h2>
+        <div v-if="loading && !error">
+            <p>Generating graph..</p>
+        </div>
+        <Scatter v-if="!loading && !error" :options="chartOptions" :data="chartData" />
+        <p v-if="error"> {{ error }}</p>
     </div>
-    <Scatter v-if="!loading && !error" :options="chartOptions" :data="chartData" />
-    <p v-if="error"> {{ error }}</p>
 </template>
 
 <script>

@@ -1,12 +1,15 @@
 <template>
-    <h1>Landing Page</h1>
+    <h1 class="p-4 display-5 fw-bold">Landing Page</h1>
 
     <div>
-        <button class="btn" v-on:click="userSignIn">Sign in</button>
-        <button class="btn" v-on:click="createAccount">Sign up</button>
+        <button type="button" class="btn btn-primary m-2" v-on:click="userSignIn">Sign in</button>
+        <button type="button" class="btn btn-primary m-2" v-on:click="createAccount">Sign up</button>
     </div>
-    <div v-if="loading" class="loading">Loading..</div>
-    <div v-if="error" class="error"> ERROR {{ error }}</div>
+    <div v-if="loading" class="spinner-border m-3">
+        <br />
+        <span class="visually-hidden">Loading</span>
+    </div>
+    <div v-if="error" class="alert alert-warning"> ERROR {{ error }}</div>
 
     <br />
 
@@ -132,3 +135,9 @@ export default {
 }
 
 </script>
+
+<style scoped>
+.spinner-border {
+    animation-duration: 2s;
+}
+</style>
