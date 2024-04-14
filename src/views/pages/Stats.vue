@@ -8,7 +8,7 @@
         </select>
     </div>
     <Loading v-if="loading" class="m-5"></Loading>
-    <p v-if="error">{{ error }}</p>
+    <p v-if="error" class="alert alert-warning m-2">{{ error }}</p>
     <div v-if="!loading && devices">
         <br />
         <TimeGraph :name="'Temperature Chart'" :devices="devices" :data="temperatureData" :yAxis="'temperature'" />
@@ -74,6 +74,7 @@ export default {
                 })
                 .catch(err => {
                     if (err[404]) {
+                        this.devices = [{ "none": "none" }]
                         this.temperatureData = []
                         this.humidityData = []
                     } else {
