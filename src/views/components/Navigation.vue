@@ -3,23 +3,24 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-    <nav class="navbar bg-info-subtle bg-body-tertiary shadow-sm mx-auto" role="navigation">
+    <nav class="navbar navbar-expand-lg bg-info-subtle bg-body-tertiary shadow-sm mx-auto text-center"
+        role="navigation">
         <div class="container-md">
-            <RouterLink to="/home" class="nav-link fs-5 text-dark px-3 py-1">
+            <RouterLink to="/home" class="col nav-link fs-5 text-dark">
                 Home
             </RouterLink> <br />
-            <RouterLink to="/manage" class="nav-link fs-5 text-dark px-3 py-1">
+            <RouterLink to="/manage" class="col nav-link fs-5 text-dark">
                 Manage Devices
             </RouterLink>
             <br />
-            <RouterLink to="/stats" class="nav-link fs-5 text-dark px-3 py-1">
+            <RouterLink to="/stats" class="col nav-link fs-5 text-dark">
                 Stats
             </RouterLink>
-            <div class="nav-link dropdown">
+            <div class="col nav-link dropdown-center">
                 <a class="nav-link" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                    <img v-if="profile_pic" class="rounded-circle shadow" :src="profile_pic" alt="Profile picture">
+                    <img v-if="profile_pic" class="rounded-circle" :src="profile_pic" alt="Profile picture">
                 </a>
-                <div class="dropdown-menu bg-info-subtle shadow w-100">
+                <div class="dropdown-menu dropdown-menu-end bg-info-subtle shadow">
                     <a class="dropdown-item" role="button" v-on:click="signOutUser">Sign out</a>
                     <div v-if="error" class="dropdown-item">
                         <i class="navbar-text">>{{ error }}</i>

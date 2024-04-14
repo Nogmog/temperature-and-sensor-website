@@ -7,10 +7,7 @@
             <option v-for="option in allGroups" :value="option.id">{{ option.name }}</option>
         </select>
     </div>
-    <div v-if="loading" class="spinner-border m-3">
-        <br />
-        <span class="visually-hidden">Loading</span>
-    </div>
+    <Loading v-if="loading" class="m-5"></Loading>
     <p v-if="error">{{ error }}</p>
     <div v-if="!loading && devices">
         <br />
@@ -22,14 +19,15 @@
 
 <script>
 import TimeGraph from "../components/TimeGraph.vue"
-
+import Loading from "../components/Loading.vue"
 import { devices } from "../../../services/device.services"
 import { groups } from "../../../services/group.services"
 
 
 export default {
     components: {
-        TimeGraph
+        TimeGraph,
+        Loading
     },
     data() {
         return {

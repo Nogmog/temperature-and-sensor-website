@@ -9,10 +9,8 @@
             <i>No devices found</i>
             <br /> <br />
             <button v-on:click="deleteGroup" :id="group_id" class="btn btn-danger m-2">Delete Group</button>
-            <div v-if="loading" class="spinner-border">
-                <br />
-                <span class="visually-hidden">Loading</span>
-            </div>
+            <Loading v-if="loading"></Loading>
+
         </div>
     </div>
 
@@ -21,6 +19,7 @@
 <script>
 import { groups } from "../../../services/group.services"
 import DeviceComponent from "../components/DeviceComponent.vue"
+import Loading from "../components/Loading.vue"
 
 
 export default {
@@ -40,7 +39,8 @@ export default {
         }
     },
     components: {
-        DeviceComponent
+        DeviceComponent,
+        Loading
     },
     methods: {
         deleteGroup() {

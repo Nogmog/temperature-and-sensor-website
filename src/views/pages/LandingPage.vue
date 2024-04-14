@@ -111,6 +111,7 @@ export default {
                             localStorage.setItem("user_token", uid)
                             this.loading = false
                             this.submitted = false
+                            this.$router.push("/home")
 
                         })
                         .catch(error => {
