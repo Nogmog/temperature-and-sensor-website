@@ -92,7 +92,6 @@ export default {
                 this.getAllDevices();
             })
             .catch(err => {
-
                 if (!(err === 404)) {
                     this.error = err
                 }
@@ -118,11 +117,8 @@ export default {
                 })
                 .catch(err => {
 
-                    if (err === 404) {
-                        this.error = "No groups found"
-                    }
-                    else {
-                        this.error = "Error"
+                    if (err !== 404) {
+                        this.error = err
                     }
                     this.loading = false
                 })
