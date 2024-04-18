@@ -91,12 +91,12 @@ export default {
             serverData.forEach(i => {
                 let newDevice = false;
                 let position = -1
-                if (!devices.includes(i["mac_address"])) { // CHECK IF DEVICE EXISTS ALREADY
-                    devices.push(i["mac_address"])
+                if (!devices.includes(i["name"])) { // CHECK IF DEVICE EXISTS ALREADY
+                    devices.push(i["name"])
                     newDevice = true
                 }
 
-                position = devices.indexOf(i["mac_address"])
+                position = devices.indexOf(i["name"])
                 if (position === -1) { // err checking
                     console.log("err");
                     return false;
