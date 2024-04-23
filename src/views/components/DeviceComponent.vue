@@ -1,15 +1,15 @@
 <template>
-    <div>
-
-        <p v-on:click="openSettings" role="button"
-            class="link-dark link-underline-opacity-0 link-underline-opacity-75-hover">{{ device_name }}
-        </p>
-
-        <div v-if="settingsMenu">
-            <button v-on:click="changeOptionChoice" id="moveGroup" class="btn btn-primary m-1">Move Group</button>
-            <button v-on:click="changeOptionChoice" id="removeDevice" class="btn btn-primary m-1">Delete Device</button>
-
+    <div class="p-2">
+        <div class="row px-2 align-self-center">
+            <p class="col">{{ device_name }}</p>
+            <img id="moveGroup" src="../../assets/arrow.png" v-on:click="changeOptionChoice"
+                class="col btn btn-light img-fluid m-1 w-25" />
+            <img id="removeDevice" src="../../assets/bin.png" v-on:click="changeOptionChoice"
+                class="col btn btn-light m-1 w-25" />
+        </div>
+        <div id="options" class="row px-1">
             <div v-if="settingChoice == 'moveGroup'" class="p-2">
+                <p class="fw-bold display-7">Move Group</p>
                 <select v-model="newGroup" class="form-select">
                     <option disabled value="">Select a group</option>
                     <option v-for="option in this.$parent.group" :value="option.id">{{ option.name }}</option>
@@ -19,13 +19,13 @@
             </div>
             <div v-if="settingChoice == 'removeDevice'" class="bg-danger-subtle p-2">
                 <p>Do you want to delete <b>{{ device_name }}</b>?</p>
-                <button v-on:click="deleteDevice" class="btn btn-danger m-1">yes</button>
-                <button v-on:click="removeDeviceMenu = false" class="btn btn-primary m-1">no</button>
+                <button v-on:click="deleteDevice" class="btn btn-danger m-1">Yes</button>
+                <button v-on:click="changeOptionChoice" id="removeDevice" class="btn btn-primary m-1">No</button>
                 <Loading v-if="loading"></Loading>
             </div>
-
-            <p v-if="error" class="alert alert-warning">{{ error }}</p>
         </div>
+
+        <p v-if="error" class="alert alert-warning">{{ error }}</p>
     </div>
 </template>
 
@@ -110,3 +110,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+img {
+    display: block;
+    max-width: 50px;
+    max-height: 50px;
+}
+</style>
