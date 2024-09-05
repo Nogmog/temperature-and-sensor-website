@@ -31,7 +31,6 @@ const SignInUser = (uid, email) => {
         })
 }
 
-
 const createNewUser = (uid, email, name) => {
     return fetch(URL + "api/user/create",
         {
@@ -59,7 +58,39 @@ const createNewUser = (uid, email, name) => {
         .catch((err) => {
 
             console.log("Error:", err)
-            console.log(err.json())
+            console.log(err)
+            return Promise.reject(err.status)
+        })
+}
+
+const createNewUserDemo = (uid, email, name) => {
+    return fetch(URL + "api/user/create/test",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "user_token": uid,
+                "email": email,
+                "name": name
+            })
+        }
+    )
+        .then((response) => {
+            if (response.status === 201) {
+                return response.json();
+            } else {
+                throw response
+            }
+        })
+        .then((resJson) => {
+            return resJson;
+        })
+        .catch((err) => {
+
+            console.log("Error:", err)
+            console.log(err)
             return Promise.reject(err.status)
         })
 }
@@ -87,5 +118,6 @@ const signOut = (session, user_token) => {
 export const users = {
     SignInUser,
     createNewUser,
+    createNewUserDemo,
     signOut
 }

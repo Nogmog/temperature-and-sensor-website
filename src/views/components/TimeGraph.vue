@@ -83,7 +83,7 @@ export default {
                             label: function (context) {
                                 let label = context.dataset.label
                                 let value = context.parsed.y
-                                return label + ": " + value;
+                                return label + ": " + value+ "C";
                             }
                         }
                     }

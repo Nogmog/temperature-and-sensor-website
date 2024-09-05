@@ -4,6 +4,7 @@
     <div>
         <button type="button" class="btn btn-primary m-2" v-on:click="userSignIn">Sign in</button>
         <button type="button" class="btn btn-primary m-2" v-on:click="createAccount">Sign up</button>
+        <button type="button" class="btn btn-primary m-2" v-on:click="createAccountDemo">Create demo account</button>
     </div>
     <div v-if="loading" class="spinner-border m-3">
         <br />
@@ -128,9 +129,45 @@ export default {
                     this.submitted = false
                 })
         },
-        sendToHomePage() {
+        createAccountDemo(e) {
+            if (this.submitted) {
+                return false;
+            }
+            this.loading = true;
+            this.submitted = true;
+            const provider = new GoogleAuthProvider();
+            const auth = getAuth()
+            signInWithPopup(auth, provider)
+                .then((response) => {
+                    const user = response.user;
+                    const uid = user.uid;
+                    const email = user.email;
+                    const name = user.displayName;
 
-        }
+                    users.createNewUserDemo(uid, email, name)
+                        .then((result) => {
+                            console.log("Backend login completed")
+                            localStorage.setItem("session-token", result["session-token"]);
+                            localStorage.setItem("user_token", uid)
+                            this.loading = false
+                            this.submitted = false
+                            this.$router.push("/home")
+
+                        })
+                        .catch(error => {
+                            this.error = error;
+                            signOut(auth);
+                            this.loading = false
+                            this.submitted = false
+                        })
+                })
+                .catch((error) => {
+                    this.error = error;
+                    console.log(error);
+                    this.loading = false
+                    this.submitted = false
+                })
+        },
 
     }
 }

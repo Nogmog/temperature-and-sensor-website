@@ -113,8 +113,8 @@ export default {
 
 <style scoped>
 img {
-    display: block;
-    max-width: 50px;
-    max-height: 50px;
+    display: inline-block;
+    max-width: 46px;
+    max-height: 46px;
 }
 </style>
